@@ -1,6 +1,8 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+import { Heart } from "react-bootstrap-icons";
 
-export default function RecipeCard({ recipe, onView }) {
+export default function RecipeCard({ recipe, onView, onFav, isFavourite }) {
   return (
     <div className="col-lg-4 col-md-6 col-sm-12 mb-4">
       <div className="card h-100">
@@ -8,24 +10,21 @@ export default function RecipeCard({ recipe, onView }) {
           src={recipe.image}
           alt={recipe.title}
           className="card-img-top"
-          style={{
-            height: "400px",
-            objectFit: "cover",
-            width: "100%"
-          }}
+          style={{ height: "400px", objectFit: "cover" }}
         />
         <div className="card-body d-flex flex-column">
-          <h5 className="card-title">{recipe.title}</h5>
-          <p className="card-text">{recipe.description}</p>
-          <p><strong>Servings:</strong> {recipe.servings}</p>
-          <p><strong>Prep:</strong> {recipe.prep} mins</p>
-          <p><strong>Cook:</strong> {recipe.cook} mins</p>
-          <button
-            className="btn btn-success mt-auto"
-            onClick={() => onView(recipe)}
-          >
-            View Recipe
-          </button>
+          <h5>{recipe.title}</h5>
+          <p>{recipe.description}</p>
+          <p><strong>Prep:</strong> {recipe.prep} mins | <strong>Cook:</strong> {recipe.cook} mins</p>
+          <div className="mt-auto d-flex gap-2">
+            <Button variant="success" onClick={() => onView(recipe)}>View</Button>
+            <Button
+              variant={isFavourite ? "danger" : "outline-danger"}
+              onClick={() => onFav(recipe)}
+            >
+              <Heart fill={isFavourite ? "red" : "none"} /> Add to Favourite
+            </Button>
+          </div>
         </div>
       </div>
     </div>
