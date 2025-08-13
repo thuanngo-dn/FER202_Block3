@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { persons } from "./person";
 
+
 export default function App() {
   const [sortAZ, setSortAZ] = useState(true);
   const [minAge, setMinAge] = useState("");
@@ -8,8 +9,11 @@ export default function App() {
   const [selectedSkill, setSelectedSkill] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  
+
+ 
   const allSkills = [...new Set(persons.flatMap(p => p.skills))];
+
+
 
 
   const filteredList = useMemo(() => {
@@ -24,18 +28,20 @@ export default function App() {
         return minCheck && maxCheck && skillCheck && searchCheck;
       })
       .sort((a, b) => {
-        
+       
         if (a.isActive !== b.isActive) return b.isActive - a.isActive; // true trước
         if (a.age !== b.age) return a.age - b.age; // tuổi tăng dần
         return a.lastName.localeCompare(b.lastName); // A→Z
       })
       .sort((a, b) => {
-        
+       
         return sortAZ
           ? a.firstName.localeCompare(b.firstName)
           : b.firstName.localeCompare(a.firstName);
       });
   }, [minAge, maxAge, selectedSkill, searchTerm, sortAZ]);
+
+
 
 
   const skillCount = useMemo(() => {
@@ -47,10 +53,12 @@ export default function App() {
     }, {});
   }, []);
 
+
   const sortedSkillCount = Object.entries(skillCount).sort((a, b) => b[1] - a[1]);
   const topSkillCount = sortedSkillCount[0]?.[1];
 
-  
+
+ 
   const statistics = useMemo(() => {
     const total = persons.length;
     const avgAge = (persons.reduce((sum, p) => sum + p.age, 0) / total).toFixed(1);
@@ -58,18 +66,21 @@ export default function App() {
     return { total, avgAge, activeCount };
   }, []);
 
+
   return (
     <div style={{ padding: "20px" }}>
       <h2>Person List</h2>
 
-    
+
+   
       <input
         placeholder="Search by name"
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
       />
 
-  
+
+ 
       <input
         type="number"
         placeholder="Min age"
@@ -83,7 +94,8 @@ export default function App() {
         onChange={e => setMaxAge(e.target.value)}
       />
 
-      
+
+     
       <select
         value={selectedSkill}
         onChange={e => setSelectedSkill(e.target.value)}
@@ -94,12 +106,14 @@ export default function App() {
         ))}
       </select>
 
-  
+
+ 
       <button onClick={() => setSortAZ(!sortAZ)}>
         Sort First Name: {sortAZ ? "A→Z" : "Z→A"}
       </button>
 
-  
+
+ 
       <ul>
         {filteredList.length > 0 ? (
           filteredList.map(p => (
@@ -112,7 +126,8 @@ export default function App() {
         )}
       </ul>
 
-      
+
+     
       <h3>Skill Ranking</h3>
       <table border="1" cellPadding="5">
         <thead>
@@ -134,7 +149,8 @@ export default function App() {
         </tbody>
       </table>
 
-      
+
+     
       <h3>Statistics</h3>
       <div>Total people: {statistics.total}</div>
       <div>Average age: {statistics.avgAge}</div>
@@ -142,3 +158,16 @@ export default function App() {
     </div>
   );
 }
+
+
+
+export const persons = [
+  { id: 1, firstName: 'Linh', lastName: 'Nguyen', age: 28, city: 'Ha Noi', skills: ['React', 'Node'], isActive: true },
+  { id: 2, firstName: 'Minh', lastName: 'Tran', age: 22, city: 'Da Nang', skills: ['Vue', 'CSS'], isActive: false },
+  { id: 3, firstName: 'Anh', lastName: 'Le', age: 35, city: 'HCM', skills: ['React', 'Go'], isActive: true },
+  { id: 4, firstName: 'Ha', lastName: 'Pham', age: 29, city: 'Ha Noi', skills: ['Angular', 'RxJS'], isActive: true },
+  { id: 5, firstName: 'Tuan', lastName: 'Do', age: 41, city: 'HCM', skills: ['Node', 'SQL'], isActive: false },
+];
+
+
+
