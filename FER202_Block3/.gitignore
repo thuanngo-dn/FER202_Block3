@@ -1,0 +1,46 @@
+# =========================
+# Node.js / React
+# =========================
+**/node_modules/
+**/build/
+**/dist/
+
+# =========================
+# Environment & Config
+# =========================
+**/.env
+**/.env.local
+**/.env.*.local
+
+# =========================
+# Editor / IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Logs
+# =========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Documents
+# =========================
+# Ignore all Word/PDF files anywhere
+*.docx
+*.doc
+*.pdf
+
+# Allow Word/PDF inside docs/ folder
+!docs/**/*.docx
+!docs/**/*.pdf
