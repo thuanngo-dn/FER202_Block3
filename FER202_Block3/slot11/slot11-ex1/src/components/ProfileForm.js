@@ -102,7 +102,7 @@ function ProfileForm({ onSubmit }) {
               key: "submit",
               variant: "primary",
               type: "submit",
-              disabled: !isFormValid,
+              disabled: !isFormValid, // neu true => summit
             },
             "Submit"
           ),
