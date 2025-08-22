@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import PropTypes from "prop-types";
+import { Card, Button, Row, Col, Form } from "react-bootstrap";
 
 const DishesList = ({ dishes }) => {
   const { addToCart } = useContext(CartContext);
@@ -13,26 +14,35 @@ const DishesList = ({ dishes }) => {
   );
 
   return (
-    <div>
-      <h2>Danh sách món ăn</h2>
-      <input
-        type="text"
-        placeholder="Tìm kiếm món ăn..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="search-box"
-      />
-      <div className="dishes">
+    <div className="my-4">
+      <h2 className="mb-3 text-center">Danh sách món ăn</h2>
+      <Form className="mb-4">
+        <Form.Control
+          type="text"
+          placeholder="Tìm kiếm món ăn..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </Form>
+      <Row xs={1} sm={2} md={3} lg={4} className="g-4">
         {filteredDishes.map((dish) => (
-          <div key={dish.id} className="dish-item">
-            <img src={dish.image} alt={dish.name} />
-            <h3>{dish.name}</h3>
-            <p>{dish.description}</p>
-            <p>{`Price: $${parseFloat(dish.price).toFixed(2)}`}</p>
-            <button onClick={() => addToCart(dish)}>Add to Cart</button>
-          </div>
+          <Col key={dish.id}>
+            <Card className="h-100 shadow-sm">
+              <Card.Img variant="top" src={dish.image} alt={dish.name} />
+              <Card.Body>
+                <Card.Title>{dish.name}</Card.Title>
+                <Card.Text>{dish.description}</Card.Text>
+                <Card.Text className="fw-bold">
+                  Price: ${parseFloat(dish.price).toFixed(2)}
+                </Card.Text>
+                <Button variant="primary" onClick={() => addToCart(dish)}>
+                  Add to Cart
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-      </div>
+      </Row>
     </div>
   );
 };

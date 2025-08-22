@@ -1,4 +1,3 @@
-// src/data/data.js
 const dishes = [
   {
     id: 0,

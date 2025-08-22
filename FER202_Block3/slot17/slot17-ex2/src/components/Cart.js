@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
+import { Button, ListGroup, Alert } from "react-bootstrap";
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, totalValue } =
@@ -12,30 +13,45 @@ const Cart = () => {
   };
 
   return (
-    <div>
-      <h2>Giỏ hàng</h2>
+    <div className="my-5">
+      <h2 className="mb-3">Giỏ hàng</h2>
       {cartItems.length === 0 ? (
-        <p>Giỏ hàng của bạn đang trống.</p>
+        <Alert variant="info">Giỏ hàng của bạn đang trống.</Alert>
       ) : (
         <div>
-          <ul>
+          <ListGroup className="mb-3">
             {cartItems.map((item) => (
-              <li key={item.id}>
+              <ListGroup.Item
+                key={item.id}
+                className="d-flex justify-content-between align-items-center"
+              >
                 {item.name} - ${item.price}
-                <button onClick={() => removeFromCart(item.id)}>Remove</button>
-              </li>
+                <Button
+                  variant="danger"   // ❌ chỉ nút Remove màu đỏ
+                  size="sm"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  Remove
+                </Button>
+              </ListGroup.Item>
             ))}
-          </ul>
-          <div>
-            <p>{`Tổng số món: ${cartItems.length}`}</p>
-            <p>{`Tổng giá trị: $${totalValue}`}</p>
-            <button onClick={clearCart}>Clear Cart</button>
-            <button onClick={handleCheckout}>Xác nhận đơn hàng</button>
+          </ListGroup>
+          <div className="mb-3">
+            <p>Tổng số món: {cartItems.length}</p>
+            <p>Tổng giá trị: ${totalValue}</p>
           </div>
+          <Button variant="primary" className="me-2" onClick={clearCart}>
+            Clear Cart
+          </Button>
+          <Button variant="primary" onClick={handleCheckout}>
+            Xác nhận đơn hàng
+          </Button>
         </div>
       )}
       {orderConfirmed && (
-        <p className="success-message">Thanh toán thành công! 🎉</p>
+        <Alert className="mt-3" variant="success">
+          Thanh toán thành công! 🎉
+        </Alert>
       )}
     </div>
   );
